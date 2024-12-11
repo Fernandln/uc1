@@ -1,54 +1,71 @@
-const limite = 500;
 const limiteSaques = 3;
-let saldo = 0;
+let saldo = parseFloat(0);
 let extrato = "";
-let numSaque = 0;
+let limite = 500;
+let numeroSaques = 0;
 
-
-while(true){  // Usar o break para sair do while
-    let opcao = prompt(
-      `
-      digite a opção desejada:
-      [d] Deposito 
-      [s] Saque 
-      [e] Extrato
-      [q] Sair
-      `);
-
-    if(opcao == "d"){
-        let valor = parseFloat(prompt("informe o valor do deposito: R$"));
+while(true) {
+    let menu = prompt(`
+            ==========================
+                Selecione uma opção: 
+                [d] - Depósito
+                [s] - Saque
+                [e] - Extrato
+                [q] - Sair
+                ${saldo}
+            ==========================
+            `); 
+    if(menu == "d") {
+        let valor = parseFloat(prompt("Informe o valor do depósito: R$"));
         if(valor > 0) {
-            saldo +=  valor;
-            extrato += `Deposito: R$${valor}`;
-            alert(`Deposito: R$${valor} foi realizado!`)
+            saldo = saldo + valor;
+            extrato = extrato + `Depósito de R$ ${valor.toFixed(2)}  `;
+            alert(`Depósito de R$ ${valor.toFixed(2)} realizado com sucesso`);
         }
         else {
-            alert("Digite um valor valido!")
+            alert("@@@ Operação falhou! O valor informado é inválido!")
         }
     }
-    else if(opcao == "s"){
-        let valor = parseFloat(prompt("informe o valor do saque: R$"));
-         
+    else if(menu == "s") {
+        let valor = parseFloat(prompt("Informe o valor do saque: R$"));
         if(valor > 0) {
-        
-            if (valor <)
-            console.log
-
-
-
-
-            if(valor <= limite){
-            
-                saldo -=  valor;
-                extrato += `saque: R$${valor}`;
-                alert(`saque: R$${valor} foi realizado!`)
-
+            if(saldo >= valor){
+                if(numeroSaques < limiteSaques && valor <= limite){
+                    saldo = saldo - valor;
+                    extrato = extrato + `saque de R$ ${valor.toFixed(2)}  `;
+                    numeroSaques++
+                    alert(`saque de R$ ${valor.toFixed(2)} realizado com sucesso`);
+                }
+                else{
+                    alert("limite de saques atingido!")
+                }
+            }
+            else{
+                alert("Saldo indisponivel")
             }
         }
         else {
-            alert("Digite um valor valido!")
+            alert("@@@ Operação falhou! O valor informado é inválido!")
         }
     }
-    
+    else if(menu == "e"){
+        if(extrato == ""){
+            alert(`Não foram realizadas movimentações.`);
+            
+        }
+        else{
+            alert(`${extrato}`);
 
+        }
+        
+    }
+    else if(menu == "q"){
+       break
+        
+    }
+    else{
+        alert("digite uma opção valida!")
+    }
+    
 }
+
